@@ -41,7 +41,7 @@ const Loader = styled.span`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.menuColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -61,6 +61,9 @@ const OverviewItem = styled.div`
 
 const Description = styled.p`
   margin: 20px 0px;
+  background-color: ${(props) => props.theme.menuColor};
+  border-radius: 15px;
+  padding: 10px;
 `;
 
 const Tabs = styled.div`
@@ -75,7 +78,7 @@ const Tab = styled.span<{ $isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.menuColor};
   padding: 7px 0px;
   border-radius: 10px;
   a {
@@ -103,6 +106,12 @@ const BackButton = styled.button`
   a:hover {
     color: ${(props) => props.theme.accentColor};
   }
+`;
+
+const ToggleDarkButton = styled.button`
+  background-color: ${props => props.theme.bgColor};
+  border: none;
+  color: ${props => props.theme.accentColor};
 `;
 
 interface RouterState {
@@ -165,7 +174,12 @@ interface PriceData {
   };
 }
 
-const Coin = () => {
+interface ICoinProps {
+  isDark: boolean;
+  toggleDark: () => void;
+}
+
+const Coin = ({ isDark, toggleDark }: ICoinProps) => {
   const { coinId } = useParams();
   const location = useLocation();
   const state = location.state as RouterState;
@@ -213,6 +227,7 @@ const Coin = () => {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
+        <ToggleDarkButton onClick={toggleDark}>{isDark ? "LightMode" : "DarkMode"}</ToggleDarkButton>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -255,7 +270,10 @@ const Coin = () => {
 
           <Routes>
             <Route path="price" element={<Price />} />
-            <Route path="chart" element={<Chart coinId={coinId} />} />
+            <Route
+              path="chart"
+              element={<Chart isDark={isDark} coinId={coinId} />}
+            />
           </Routes>
 
           <BackButtons>

@@ -8,5 +8,6 @@ declare module "styled-components" {
     downColor: string;
     upColor: string;
     priceMenuColor: string;
+    menuColor: string;
   }
 }

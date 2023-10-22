@@ -19,11 +19,11 @@ const Header = styled.header`
 const CoinsList = styled.ul``;
 const Coin = styled.li`
   background-color: white;
-  color: ${(props) => props.theme.bgColor};
   margin-bottom: 10px;
   border-radius: 15px;
   a {
     display: flex;
+    color: ${(props) => props.theme.textColor};
     align-items: center;
     padding: 20px;
     transition: color 0.2s ease-in;
@@ -46,6 +46,12 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
+const ToggleDarkButton = styled.button`
+  background-color: ${props => props.theme.bgColor};
+  border: none;
+  color: ${props => props.theme.accentColor};
+`;
+
 interface ICoin {
   id: string;
   name: string;
@@ -56,12 +62,18 @@ interface ICoin {
   type: string;
 }
 
+interface ICoinsProps {
+  isDark: boolean;
+  toggleDark: () => void;
+}
+
 const Loader = styled.span`
   text-align: center;
   display: block;
+  color: ${props => props.theme.accentColor};
 `;
 
-const Coins = () => {
+const Coins = ({toggleDark, isDark}: ICoinsProps) => {
   const { isLoading, data } = useQuery<ICoin[]>(["allCoins"], fetchCoins);
   /* const [coins, setCoins] = useState<ICoin[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,6 +91,7 @@ const Coins = () => {
       </Helmet>
       <Header>
         <Title>코인</Title>
+        <ToggleDarkButton onClick={toggleDark}>{isDark ? "LightMode" : "DarkMode"}</ToggleDarkButton>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>

@@ -11,7 +11,7 @@ const Container = styled.div`
   color: ${(props) => props.theme.accentColor};
 `;
 const PriceMenu = styled.div`
-  background-color: ${(props) => props.theme.priceMenuColor};
+  background-color: ${(props) => props.theme.menuColor};
   padding: 15px 20px;
   border-radius: 15px;
   margin: 10px 10px;
@@ -24,6 +24,7 @@ const PriceMenu = styled.div`
   }
   span:nth-child(1) {
     font-size: 15px;
+    color: ${props => props.theme.textColor};
   }
   span:nth-child(2) {
     font-size: 20px;
@@ -103,7 +104,9 @@ const Price = () => {
             tickersData?.quotes.USD.percent_change_15m >= 0 ? (
               <UpRate>↗️{tickersData?.quotes.USD.percent_change_15m}%</UpRate>
             ) : (
-              <DownRate>↘️{tickersData?.quotes.USD.percent_change_15m}%</DownRate>
+              <DownRate>
+                ↘️{tickersData?.quotes.USD.percent_change_15m}%
+              </DownRate>
             )}
           </PriceMenu>
           <PriceMenu>
@@ -112,7 +115,9 @@ const Price = () => {
             tickersData?.quotes.USD.percent_change_1h >= 0 ? (
               <UpRate>↗️{tickersData?.quotes.USD.percent_change_1h}%</UpRate>
             ) : (
-              <DownRate>↘️{tickersData?.quotes.USD.percent_change_1h}%</DownRate>
+              <DownRate>
+                ↘️{tickersData?.quotes.USD.percent_change_1h}%
+              </DownRate>
             )}
           </PriceMenu>
           <PriceMenu>
@@ -121,16 +126,22 @@ const Price = () => {
             tickersData?.quotes.USD.percent_change_24h >= 0 ? (
               <UpRate>↗️{tickersData?.quotes.USD.percent_change_24h}%</UpRate>
             ) : (
-              <DownRate>↘️{tickersData?.quotes.USD.percent_change_24h}%</DownRate>
+              <DownRate>
+                ↘️{tickersData?.quotes.USD.percent_change_24h}%
+              </DownRate>
             )}
           </PriceMenu>
           <PriceMenu>
             <span>24h 시가 총액 변동: </span>
             {tickersData?.quotes.USD.market_cap_change_24h &&
             tickersData?.quotes.USD.market_cap_change_24h >= 0 ? (
-              <UpRate>↗️{tickersData?.quotes.USD.market_cap_change_24h}%</UpRate>
+              <UpRate>
+                ↗️{tickersData?.quotes.USD.market_cap_change_24h}%
+              </UpRate>
             ) : (
-              <DownRate>↘️{tickersData?.quotes.USD.market_cap_change_24h}%</DownRate>
+              <DownRate>
+                ↘️{tickersData?.quotes.USD.market_cap_change_24h}%
+              </DownRate>
             )}
           </PriceMenu>
         </>

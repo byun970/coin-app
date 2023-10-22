@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Router from "./Router";
-import { createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { HelmetProvider } from "react-helmet-async";
+import { darkTheme, lightTheme } from "./theme";
+
 
 const GlobalStyle = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -68,13 +70,17 @@ a {
 `;
 
 const App = () => {
+  const [isDark, setIsDark] = useState(false);
+  const toggleDark = () => setIsDark(current => !current);
   return (
     <>
-      <GlobalStyle />
-      <HelmetProvider>
-        <Router />
-      </HelmetProvider>
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <GlobalStyle />
+        <HelmetProvider>
+          <Router isDark={isDark} toggleDark= {toggleDark} />
+        </HelmetProvider>
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
   );
 };
