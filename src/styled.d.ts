@@ -9,5 +9,6 @@ declare module "styled-components" {
     upColor: string;
     priceMenuColor: string;
     menuColor: string;
+    btnColor: string;
   }
 }

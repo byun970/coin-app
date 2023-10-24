@@ -26,6 +26,7 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
   margin: 20px 0px;
+  position:relative;
 `;
 
 const Title = styled.h1`
@@ -88,30 +89,24 @@ const Tab = styled.span<{ $isActive: boolean }>`
   }
 `;
 
-const BackButtons = styled.div`
-  margin: 25px 0px;
-  display: flex;
-  justify-content: center;
-`;
-
 const BackButton = styled.button`
   border-radius: 15px;
-  padding: 5px 20px;
   font-size: 16px;
   border: none;
-  background-color: tomato;
+  background-color: red;
+  position: absolute;
+  top: 21px;
+  right: 5px;
+  text-align:center;
+  cursor: pointer;
   a {
-    color: ${(props) => props.theme.textColor};
+    color: white;
+    display: block;
+    padding: 5px 10px; 
   }
-  a:hover {
+  &:hover a{
     color: ${(props) => props.theme.accentColor};
   }
-`;
-
-const ToggleDarkButton = styled.button`
-  background-color: ${props => props.theme.bgColor};
-  border: none;
-  color: ${props => props.theme.accentColor};
 `;
 
 interface RouterState {
@@ -174,12 +169,7 @@ interface PriceData {
   };
 }
 
-interface ICoinProps {
-  isDark: boolean;
-  toggleDark: () => void;
-}
-
-const Coin = ({ isDark, toggleDark }: ICoinProps) => {
+const Coin = () => {
   const { coinId } = useParams();
   const location = useLocation();
   const state = location.state as RouterState;
@@ -227,7 +217,11 @@ const Coin = ({ isDark, toggleDark }: ICoinProps) => {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
-        <ToggleDarkButton onClick={toggleDark}>{isDark ? "LightMode" : "DarkMode"}</ToggleDarkButton>
+        <BackButton>
+          <Link to={"/"}>
+            <span className="material-symbols-outlined">arrow_back</span>
+          </Link>
+        </BackButton>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -270,17 +264,8 @@ const Coin = ({ isDark, toggleDark }: ICoinProps) => {
 
           <Routes>
             <Route path="price" element={<Price />} />
-            <Route
-              path="chart"
-              element={<Chart isDark={isDark} coinId={coinId} />}
-            />
+            <Route path="chart" element={<Chart coinId={coinId} />} />
           </Routes>
-
-          <BackButtons>
-            <BackButton>
-              <Link to={"/"}>Back</Link>
-            </BackButton>
-          </BackButtons>
         </>
       )}
     </Container>

@@ -24,7 +24,7 @@ const PriceMenu = styled.div`
   }
   span:nth-child(1) {
     font-size: 15px;
-    color: ${props => props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
   }
   span:nth-child(2) {
     font-size: 20px;
@@ -102,10 +102,24 @@ const Price = () => {
             <span>15m 변화율: </span>
             {tickersData?.quotes.USD.percent_change_15m &&
             tickersData?.quotes.USD.percent_change_15m >= 0 ? (
-              <UpRate>↗️{tickersData?.quotes.USD.percent_change_15m}%</UpRate>
+              <UpRate>
+                <span
+                  style={{ color: "#3498db" }}
+                  className="material-symbols-outlined"
+                >
+                  trending_up
+                </span>
+                {tickersData?.quotes.USD.percent_change_15m}%
+              </UpRate>
             ) : (
               <DownRate>
-                ↘️{tickersData?.quotes.USD.percent_change_15m}%
+                <span
+                  style={{ color: "#e74c3c" }}
+                  className="material-symbols-outlined"
+                >
+                  trending_down
+                </span>
+                {tickersData?.quotes.USD.percent_change_15m}%
               </DownRate>
             )}
           </PriceMenu>
@@ -113,10 +127,24 @@ const Price = () => {
             <span>1h 변화율: </span>
             {tickersData?.quotes.USD.percent_change_1h &&
             tickersData?.quotes.USD.percent_change_1h >= 0 ? (
-              <UpRate>↗️{tickersData?.quotes.USD.percent_change_1h}%</UpRate>
+              <UpRate>
+                <span
+                  style={{ color: "#3498db" }}
+                  className="material-symbols-outlined"
+                >
+                  trending_up
+                </span>
+                {tickersData?.quotes.USD.percent_change_1h}%
+              </UpRate>
             ) : (
               <DownRate>
-                ↘️{tickersData?.quotes.USD.percent_change_1h}%
+                <span
+                  style={{ color: "#e74c3c" }}
+                  className="material-symbols-outlined"
+                >
+                  trending_down
+                </span>
+                {tickersData?.quotes.USD.percent_change_1h}%
               </DownRate>
             )}
           </PriceMenu>
@@ -124,10 +152,24 @@ const Price = () => {
             <span>24h 변화율: </span>
             {tickersData?.quotes.USD.percent_change_24h &&
             tickersData?.quotes.USD.percent_change_24h >= 0 ? (
-              <UpRate>↗️{tickersData?.quotes.USD.percent_change_24h}%</UpRate>
+              <UpRate>
+                <span
+                  style={{ color: "#3498db" }}
+                  className="material-symbols-outlined"
+                >
+                  trending_up
+                </span>
+                {tickersData?.quotes.USD.percent_change_24h}%
+              </UpRate>
             ) : (
               <DownRate>
-                ↘️{tickersData?.quotes.USD.percent_change_24h}%
+                <span
+                  style={{ color: "#e74c3c" }}
+                  className="material-symbols-outlined"
+                >
+                  trending_down
+                </span>
+                {tickersData?.quotes.USD.percent_change_24h}%
               </DownRate>
             )}
           </PriceMenu>
@@ -136,11 +178,23 @@ const Price = () => {
             {tickersData?.quotes.USD.market_cap_change_24h &&
             tickersData?.quotes.USD.market_cap_change_24h >= 0 ? (
               <UpRate>
-                ↗️{tickersData?.quotes.USD.market_cap_change_24h}%
+                <span
+                  style={{ color: "#3498db" }}
+                  className="material-symbols-outlined"
+                >
+                  trending_up
+                </span>
+                {tickersData?.quotes.USD.market_cap_change_24h}%
               </UpRate>
             ) : (
               <DownRate>
-                ↘️{tickersData?.quotes.USD.market_cap_change_24h}%
+                <span
+                  style={{ color: "#e74c3c" }}
+                  className="material-symbols-outlined"
+                >
+                  trending_down
+                </span>
+                {tickersData?.quotes.USD.market_cap_change_24h}%
               </DownRate>
             )}
           </PriceMenu>

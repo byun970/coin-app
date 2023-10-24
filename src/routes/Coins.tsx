@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet-async";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -18,7 +20,7 @@ const Header = styled.header`
 `;
 const CoinsList = styled.ul``;
 const Coin = styled.li`
-  background-color: white;
+  background-color: ${(props) => props.theme.menuColor};
   margin-bottom: 10px;
   border-radius: 15px;
   a {
@@ -46,10 +48,18 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
-const ToggleDarkButton = styled.button`
-  background-color: ${props => props.theme.bgColor};
+const ToggleButton = styled.button`
+  background-color: ${props => props.theme.btnColor};
   border: none;
-  color: ${props => props.theme.accentColor};
+  padding: 10px 5px;
+  border-radius: 15px;
+  cursor: pointer;
+  color: ${props => props.theme.textColor};
+  position: absolute;
+  display:flex;
+  align-items: center;
+  right: 25px;
+  top:25px;
 `;
 
 interface ICoin {
@@ -62,18 +72,16 @@ interface ICoin {
   type: string;
 }
 
-interface ICoinsProps {
-  isDark: boolean;
-  toggleDark: () => void;
-}
-
 const Loader = styled.span`
   text-align: center;
   display: block;
-  color: ${props => props.theme.accentColor};
+  color: ${(props) => props.theme.accentColor};
 `;
 
-const Coins = ({toggleDark, isDark}: ICoinsProps) => {
+const Coins = () => {
+  const isDark = useRecoilValue(isDarkAtom);
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   const { isLoading, data } = useQuery<ICoin[]>(["allCoins"], fetchCoins);
   /* const [coins, setCoins] = useState<ICoin[]>([]);
   const [loading, setLoading] = useState(true);
@@ -91,7 +99,9 @@ const Coins = ({toggleDark, isDark}: ICoinsProps) => {
       </Helmet>
       <Header>
         <Title>코인</Title>
-        <ToggleDarkButton onClick={toggleDark}>{isDark ? "LightMode" : "DarkMode"}</ToggleDarkButton>
+        <ToggleButton onClick={toggleDarkAtom}>{isDark ? <><span className="material-symbols-outlined">
+light_mode</span><span>Light Mode</span></> : <><span className="material-symbols-outlined">dark_mode</span><span>Dark Mode</span></>}
+</ToggleButton>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
